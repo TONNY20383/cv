@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Inclusion de Tailwind CSS via CDN -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <!-- Inclusion de html2canvas et jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://raw.githubusercontent.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.min.js"></script>
+  <title>Générateur de CV - Formulaire & CV</title>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-8 md:flex md:space-x-4">
+    <!-- FORMULAIRE (40%) -->
+    <div class="w-full md:w-2/5 bg-white p-6 rounded shadow">
+      <h2 class="text-2xl font-bold mb-4">Créer votre CV</h2>
+      <form id="cvForm" class="space-y-6">
+        <!-- Informations Personnelles -->
+        <div>
+          <h3 class="text-2xl font-bold mb-2">Informations Personnelles</h3>
+          <div class="space-y-3 mt-4">
+            <div>
+              <label for="name" class="block font-medium">Nom complet</label>
+              <input type="text" id="name" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="age" class="block font-medium">Âge</label>
+              <input type="number" id="age" class="w-80 border border-gray-300 rounded p-2" min="18" max="65" required>
+            </div>
+            <div>
+              <label for="sexe" class="block font-medium">Sexe</label>
+              <input type="text" id="sexe" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="post" class="block font-medium">Titre du Poste</label>
+              <input type="text" id="post" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="act" class="block font-medium">Situation Actuelle</label>
+              <input type="text" id="act" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="des" class="block font-medium">Description</label>
+              <input type="text" id="des" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="email" class="block font-medium">E-mail</label>
+              <input type="email" id="email" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="tel" class="block font-medium">Téléphone</label>
+              <input type="tel" id="tel" pattern="\d{10}" class="w-80 border border-gray-300 rounded p-2" placeholder="0612345678" required>
+            </div>
+            <div>
+              <label for="adresse" class="block font-medium">Adresse</label>
+              <input type="text" id="adresse" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+            <div>
+              <label for="image" class="block font-medium">Votre photo</label>
+              <input type="file" id="image" accept="image/*" class="w-80 border border-gray-300 rounded p-2" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expériences Professionnelles -->
+        <div>
+          <h3 class="text-2xl font-bold">Expériences Professionnelles</h3>
+          <div class="space-y-3 mt-4">
+            <div>
+              <label for="entre" class="block font-medium">Nom de l'entreprise</label>
+              <input type="text" id="entre" class="w-80 border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label for="posteExp" class="block font-medium">Poste Occupé</label>
+              <input type="text" id="posteExp" class="w-80 border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label for="dureeExp" class="block font-medium">Durée</label>
+              <input type="text" id="dureeExp" class="w-80 border border-gray-300 rounded p-2" placeholder="ex: Janv. 2020 - Déc. 2020">
+            </div>
+            <div>
+              <label for="descExp" class="block font-medium">Description des missions</label>
+              <textarea id="descExp" class="w-80 border border-gray-300 rounded p-2" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formation -->
+        <div>
+          <h3 class="text-2xl font-bold">Formation</h3>
+          <div class="space-y-3 mt-4">
+            <div>
+              <label for="diplome" class="block font-medium">Diplôme obtenu</label>
+              <input type="text" id="diplome" class="w-80 border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label for="etablissement" class="block font-medium">Établissement</label>
+              <input type="text" id="etablissement" class="w-80 border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label for="annee" class="block font-medium">Année d'obtention</label>
+              <select id="annee" class="w-80 border border-gray-300 rounded p-2">
+                <option value="">Sélectionnez</option>
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compétences avec barre de progression -->
+        <div>
+          <h3 class="text-2xl font-bold">Compétences</h3>
+          <div class="space-y-3 mt-4">
+            <div>
+              <label for="skillName" class="block font-medium">Nom de la compétence</label>
+              <input type="text" id="skillName" class="w-80 border border-gray-300 rounded p-2">
+            </div>
+            <div>
+              <label for="skillLevel" class="block font-medium">Niveau d'expérience (%)</label>
+              <input type="range" id="skillLevel" min="0" max="100" class="w-80" value="0">
+              <span id="skillLevelValue" class="text-sm">0%</span>
+            </div>
+            <button type="button" id="addSkill" class="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded">
+              Ajouter Compétence
+            </button>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex justify-end space-x-4">
+          <button type="button" id="resetBtn" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded">
+            Réinitialiser
+          </button>
+          <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white p-2 rounded">
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- CV (60%) -->
+    <div id="cvPreview" class="w-full md:w-3/5 bg-white rounded shadow-lg overflow-hidden">
+      <!-- En-tête du CV -->
+      <div class="bg-indigo-600 p-6 flex items-center">
+        <img id="previewImage" src="placeholder-profile.png" alt="Photo de profil" class="w-20 h-20 rounded-full border-2 border-white mr-4">
+        <div>
+          <h2 id="previewName" class="text-3xl font-bold text-white"></h2>
+          <p id="previewPost" class="text-lg text-white"></p>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row">
+        <!-- Sidebar du CV -->
+        <div class="w-full md:w-1/3 bg-neutral-100 p-4">
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-gray-700">Contact</h3>
+            <p class="text-gray-600"><strong>Email:</strong> <span id="previewEmail"></span></p>
+            <p class="text-gray-600"><strong>Téléphone:</strong> <span id="previewTel"></span></p>
+            <p class="text-gray-600"><strong>Adresse:</strong> <span id="previewAdresse"></span></p>
+          </div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-gray-700">Informations</h3>
+            <p class="text-gray-600"><strong>Âge:</strong> <span id="previewAge"></span></p>
+            <p class="text-gray-600"><strong>Sexe:</strong> <span id="previewSexe"></span></p>
+            <p class="text-gray-600"><strong>Situation:</strong> <span id="previewAct"></span></p>
+          </div>
+        </div>
+        <!-- Contenu principal du CV -->
+        <div class="w-full md:w-2/3 p-4">
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-gray-700">Profil</h3>
+            <p id="previewDes" class="text-gray-600"></p>
+          </div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-gray-700">Expérience Professionnelle</h3>
+            <p class="text-gray-600"><strong>Entreprise:</strong> <span id="previewEntre"></span></p>
+            <p class="text-gray-600"><strong>Poste:</strong> <span id="previewPosteExp"></span></p>
+            <p class="text-gray-600"><strong>Durée:</strong> <span id="previewDureeExp"></span></p>
+            <p class="text-gray-600"><strong>Description:</strong> <span id="previewDescExp"></span></p>
+          </div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-gray-700">Formation</h3>
+            <p class="text-gray-600"><strong>Diplôme:</strong> <span id="previewDiplome"></span></p>
+            <p class="text-gray-600"><strong>Établissement:</strong> <span id="previewEtablissement"></span></p>
+            <p class="text-gray-600"><strong>Année:</strong> <span id="previewAnnee"></span></p>
+          </div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-gray-700">Compétences</h3>
+            <div id="skillsPreview" class="space-y-2">
+              <!-- Les compétences ajoutées apparaîtront ici -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bouton Télécharger CV -->
+      <div class="p-4">
+        <button id="downloadCV" class="bg-green-500 hover:bg-green-600 text-white p-2 rounded">
+          Télécharger CV
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+     //  Affichage de la photo sélectionnée
+       // Fonction pour afficher la photo de profil en temps réel
+       document.getElementById("image").addEventListener("change", function(event) {
+          const file = event.target.files[0]; // Récupère le fichier sélectionné
+          const reader = new FileReader(); // Crée un objet FileReader
+
+          // Fonction pour lire le fichier et afficher l'image
+          reader.onload = function(e) {
+            const previewImage = document.getElementById("previewImage");
+            previewImage.src = e.target.result; // Définir la source de l'image sur la photo téléchargée
+          };
+
+          // Vérifie si un fichier a été sélectionné et que c'est une image
+          if (file && file.type.startsWith("image")) {
+            reader.readAsDataURL(file); // Lit le fichier comme une URL de données
+          } else {
+            alert("Veuillez télécharger une image valide.");
+          }
+        });
+        document.getElementById('cvForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Récupération du numéro de téléphone
+        const phone = document.getElementById('tel').value;
+
+        // Expression régulière pour valider un numéro au format Camerounais
+        const phoneRegex = /^(237)\s6\d{8}$/;
+
+        if (!phoneRegex.test(phone)) {
+          alert('Le numéro de téléphone doit être au format (237) 6XX XX XX XX');
+          return false;
+        }
+
+        // Si le format est valide, on peut soumettre le formulaire (ou effectuer toute autre action)
+        alert('Numéro de téléphone valide!');
+        // Vous pouvez ajouter ici l'appel pour enregistrer ou télécharger le CV
+      });
+      // Fonction pour télécharger le CV en PDF
+      document.getElementById('downloadCV').addEventListener('click', function () {
+        // Sélectionner l'élément du CV à exporter en PDF
+        const cvElement = document.getElementById('cvPreview');
+
+        // Configuration pour html2pdf
+        const options = {
+          margin:       1,
+          filename:     'cv.pdf',
+          image:        { type: 'jpeg', quality: 0.98 },
+          html2canvas:  { scale: 2 },
+          jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Utilisation de html2pdf pour convertir l'élément en PDF
+        html2pdf().from(cvElement).set(options).save();
+      });
+
+      // Fonction pour mettre à jour la prévisualisation du CV en fonction des données du formulaire
+      document.getElementById('cvForm').addEventListener('input', function () {
+        // Récupérer les valeurs du formulaire
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const sexe = document.getElementById('sexe').value;
+        const post = document.getElementById('post').value;
+        const act = document.getElementById('act').value;
+        const des = document.getElementById('des').value;
+        const email = document.getElementById('email').value;
+        const tel = document.getElementById('tel').value;
+        const adresse = document.getElementById('adresse').value;
+        const image = document.getElementById('image').files[0];
+
+        // Mettre à jour la prévisualisation du CV
+        document.getElementById('previewName').textContent = name;
+        document.getElementById('previewAge').textContent = age;
+        document.getElementById('previewSexe').textContent = sexe;
+        document.getElementById('previewPost').textContent = post;
+        document.getElementById('previewAct').textContent = act;
+        document.getElementById('previewDes').textContent = des;
+        document.getElementById('previewEmail').textContent = email;
+        document.getElementById('previewTel').textContent = tel;
+        document.getElementById('previewAdresse').textContent = adresse;
+
+        // Mettre à jour l'image du profil si une image est sélectionnée
+        if (image) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById('previewImage').src = e.target.result;
+          };
+          reader.readAsDataURL(image);
+        }
+
+        // Mettre à jour les expériences professionnelles et formation
+        document.getElementById('previewEntre').textContent = document.getElementById('entre').value;
+        document.getElementById('previewPosteExp').textContent = document.getElementById('posteExp').value;
+        document.getElementById('previewDureeExp').textContent = document.getElementById('dureeExp').value;
+        document.getElementById('previewDescExp').textContent = document.getElementById('descExp').value;
+        document.getElementById('previewDiplome').textContent = document.getElementById('diplome').value;
+        document.getElementById('previewEtablissement').textContent = document.getElementById('etablissement').value;
+        document.getElementById('previewAnnee').textContent = document.getElementById('annee').value;
+
+        // Mettre à jour les compétences
+        const skillName = document.getElementById('skillName').value;
+        const skillLevel = document.getElementById('skillLevel').value;
+        const skillsPreview = document.getElementById('skillsPreview');
+
+        if (skillName && skillLevel) {
+          const skillDiv = document.createElement('div');
+          skillDiv.className = 'flex justify-between items-center';
+
+          const skillText = document.createElement('span');
+          skillText.textContent = skillName + ' - ' + skillLevel + '%';
+          skillDiv.appendChild(skillText);
+
+          const progressBar = document.createElement('div');
+          progressBar.className = 'w-full bg-gray-200 rounded-full h-2';
+          const progress = document.createElement('div');
+          progress.className = 'bg-indigo-600 h-2 rounded-full';
+          progress.style.width = skillLevel + '%';
+          progressBar.appendChild(progress);
+          skillDiv.appendChild(progressBar);
+
+          skillsPreview.appendChild(skillDiv);
+        }
+      });
+
+
+  </script>
+
+  <script src="cv.js"></script>
+</body>
+</html>
